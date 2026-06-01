@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aidan J. Sinclair — Art League Houston</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:   #1a1a1a;
+      --mid:   #555;
+      --light: #999;
+      --rule:  #e0e0e0;
+      --bg:    #faf9f7;
+      --serif: 'Georgia', 'Times New Roman', serif;
+      --sans:  system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ─────────────────────────────────── */
+
+    .hero {
+      min-height: 100vh;
+      background: #0f0f0d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 4.5vw, 3.25rem);
+      font-weight: normal;
+      color: #f0efeb;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #484844;
+      text-align: center;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #3a3a36;
+      white-space: nowrap;
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 0.9; }
+    }
+
+    /* ── Page header ──────────────────────────── */
+
+    header {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    header .name {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    header .contact {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--light);
+      letter-spacing: 0.03em;
+      text-align: right;
+    }
+
+    header .contact a { color: var(--light); text-decoration: none; }
+    header .contact a:hover { color: var(--mid); }
+
+    /* ── Exhibition image (Havoc Hendricks) ───── */
+
+    .image-block {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 0;
+    }
+
+    .image-block figure { width: 100%; }
+
+    .image-block img { width: 100%; height: auto; display: block; }
+
+    .image-block figcaption {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      margin-top: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Letter ───────────────────────────────── */
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 2rem;
+    }
+
+    .salutation {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 2rem;
+    }
+
+    .letter p {
+      margin-bottom: 1.6rem;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    .sign-off {
+      margin-top: 2.5rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.9;
+    }
+
+    .sign-off .closing { margin-bottom: 0.25rem; }
+
+    .sign-off .sig-name {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Carousel ─────────────────────────────── */
+
+    .carousel-block {
+      margin: 2.25rem 0;
+    }
+
+    .carousel-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      background: #e2e0db;
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-slide .ph {
+      width: 100%;
+      height: 100%;
+      background: #dedad4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      color: #b5b0a8;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(250, 249, 247, 0.85);
+      border: none;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      font-size: 0.9rem;
+      transition: background 0.15s;
+      z-index: 2;
+    }
+
+    .carousel-btn:hover { background: #fff; }
+    .carousel-btn.prev { left: 0.75rem; }
+    .carousel-btn.next { right: 0.75rem; }
+
+    .carousel-caption {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      letter-spacing: 0.02em;
+      min-height: 1.4em;
+      margin-top: 0.6rem;
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Thumbnail strip ──────────────────────── */
+
+    .carousel-thumbs {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .carousel-thumbs::-webkit-scrollbar { display: none; }
+
+    .carousel-thumb {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0.38;
+      border: 1.5px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .carousel-thumb.active {
+      opacity: 1;
+      border-color: var(--ink);
+    }
+
+    .carousel-thumb:hover:not(.active) { opacity: 0.7; }
+
+    .carousel-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-thumb .ph-thumb {
+      width: 100%;
+      height: 100%;
+      background: #dedad4;
+    }
+
+    /* ── Divider ──────────────────────────────── */
+
+    .rule {
+      max-width: 680px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── Materials ────────────────────────────── */
+
+    .materials {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+    }
+
+    .materials h2 {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 1.5rem;
+    }
+
+    .materials ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .materials a {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.1em;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .materials a:hover { color: var(--mid); border-color: var(--mid); }
+
+    .materials .label {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--light);
+      margin-left: 0.6rem;
+    }
+
+    /* ── Responsive ───────────────────────────── */
+
+    @media (max-width: 480px) {
+      html { font-size: 16px; }
+      header { flex-direction: column; gap: 0.5rem; }
+      header .contact { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Thank you for clicking the link.</h1>
+    <p class="hero-sub">Aidan J. Sinclair &nbsp;·&nbsp; Curator and Exhibition Manager &nbsp;·&nbsp; Art League Houston</p>
+    <span class="scroll-cue">↓ &nbsp; scroll</span>
+  </section>
+
+  <!-- Page header -->
+  <header>
+    <span class="name">Aidan J. Sinclair</span>
+    <span class="contact">
+      832.419.5932<br>
+      <a href="mailto:aidan@aidansinclair.com">aidan@aidansinclair.com</a>
+    </span>
+  </header>
+
+  <!-- Havoc Hendricks image -->
+  <div class="image-block">
+    <figure>
+      <img src="images/havoc-hendricks.jpg" alt="Installation view, Havoc Hendricks, Gallery Nua, Houston">
+      <figcaption>Installation view — Havoc Hendricks, Gallery Nua, Houston</figcaption>
+    </figure>
+  </div>
+
+  <!-- Letter -->
+  <main>
+    <p class="salutation">For the Curator and Exhibition Manager position<br>Art League Houston</p>
+
+    <div class="letter">
+      <p>What has kept me in and around contemporary art for the past fifteen years is, at its core, an interest in what happens between a work and the people who encounter it — between an artist and an audience, between an exhibition and the community that receives it. Art League Houston is organized around that question. It's embedded in the mission, and it's what draws me to this role.</p>
+    </div>
+
+    <!-- Carousel — between paragraphs 1 and 2 -->
+    <div class="carousel-block">
+      <div class="carousel-stage">
+        <div class="carousel-track" id="carouselTrack"></div>
+        <button class="carousel-btn prev" id="prevBtn" aria-label="Previous">&#8592;</button>
+        <button class="carousel-btn next" id="nextBtn" aria-label="Next">&#8594;</button>
+      </div>
+      <div class="carousel-caption" id="carouselCaption"></div>
+      <div class="carousel-thumbs" id="carouselThumbs"></div>
+    </div>
+
+    <div class="letter">
+      <p>Over that time I've worked as Gallery Director at Laura Rathe Fine Art, as founder and director of Gallery Nua, and currently as a gallery associate at Reeves Art Gallery. Across all of it, I've developed the full range of experience this position requires: exhibition planning and production, hands-on installation, budget and schedule management, artist contracts and logistics, catalogue production, and public programming. What I've found is that the operational work and the relational work can't really be separated — the quality of an exhibition often comes down to how well the relationships around it have been tended.</p>
+
+      <p>The Curator and Exhibition Manager role spans a broad range of responsibilities, from installation and art handling to donor engagement, from artist talks to gala logistics. The range of people it involves — artists, benefactors, community members, board members, institutional partners — is one of the things I find most compelling about it. I've worked across that spectrum, and I tend to be most effective when a role requires holding multiple registers at once.</p>
+
+      <p>I'd welcome the opportunity to talk further about the role and what working with ALH might look like.</p>
+    </div>
+
+    <div class="sign-off">
+      <div class="closing">Sincerely,</div>
+      <div class="sig-name">Aidan J. Sinclair</div>
+    </div>
+  </main>
+
+  <hr class="rule">
+
+  <section class="materials">
+    <h2>Application Materials</h2>
+    <ul>
+      <li>
+        <a href="Aidan-Sinclair-Resume-ALH.pdf" download>Résumé &amp; References</a>
+        <span class="label">PDF</span>
+      </li>
+      <li>
+        <a href="Flood-the-Zone.pdf" download>Writing Sample — Flood the Zone</a>
+        <span class="label">PDF</span>
+      </li>
+      <li>
+        <a href="Tony-Magar.pdf" download>Writing Sample — Tony Magar</a>
+        <span class="label">PDF</span>
+      </li>
+    </ul>
+  </section>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CAROUSEL CONTENT
+    // Add image files to the /images/ folder named carousel-1.jpg
+    // through carousel-10.jpg, then fill in captions below.
+    // ─────────────────────────────────────────────────────────────
+    const slides = [
+      { src: 'images/carousel-1.jpg',  caption: '' },
+      { src: 'images/carousel-2.jpg',  caption: '' },
+      { src: 'images/carousel-3.jpg',  caption: '' },
+      { src: 'images/carousel-4.jpg',  caption: '' },
+      { src: 'images/carousel-5.jpg',  caption: '' },
+      { src: 'images/carousel-6.jpg',  caption: '' },
+      { src: 'images/carousel-7.jpg',  caption: '' },
+      { src: 'images/carousel-8.jpg',  caption: '' },
+      { src: 'images/carousel-9.jpg',  caption: '' },
+      { src: 'images/carousel-10.jpg', caption: '' },
+    ];
+    // ─────────────────────────────────────────────────────────────
+
+    const track     = document.getElementById('carouselTrack');
+    const thumbsEl  = document.getElementById('carouselThumbs');
+    const captionEl = document.getElementById('carouselCaption');
+    let current = 0;
+
+    slides.forEach((s, i) => {
+      // Main slide
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      const img = document.createElement('img');
+      img.src = s.src;
+      img.alt = s.caption || `Exhibition image ${i + 1}`;
+      img.onerror = function () {
+        this.parentNode.innerHTML = `<div class="ph">Image ${i + 1}</div>`;
+      };
+      slide.appendChild(img);
+      track.appendChild(slide);
+
+      // Thumbnail
+      const thumb = document.createElement('div');
+      thumb.className = 'carousel-thumb' + (i === 0 ? ' active' : '');
+      thumb.setAttribute('role', 'button');
+      thumb.setAttribute('aria-label', `View image ${i + 1}`);
+      const tImg = document.createElement('img');
+      tImg.src = s.src;
+      tImg.alt = '';
+      tImg.onerror = function () {
+        this.parentNode.innerHTML = '<div class="ph-thumb"></div>';
+      };
+      thumb.appendChild(tImg);
+      thumb.addEventListener('click', () => goTo(i));
+      thumbsEl.appendChild(thumb);
+    });
+
+    function goTo(n) {
+      current = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      captionEl.textContent = slides[current].caption;
+      document.querySelectorAll('.carousel-thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === current);
+      });
+      // Keep active thumbnail scrolled into view
+      const activeThumb = thumbsEl.children[current];
+      if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      }
+    }
+
+    // Set initial caption
+    captionEl.textContent = slides[0].caption;
+
+    // Arrow buttons
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // Touch / swipe
+    let touchStartX = 0;
+    const stage = document.querySelector('.carousel-stage');
+    stage.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    });
+  </script>
+
+</body>
+</html>
