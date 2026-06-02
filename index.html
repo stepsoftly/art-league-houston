@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aidan J. Sinclair — Art League Houston</title>
+  <title>Aidan J. Sinclair</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -30,53 +30,61 @@
     /* ── Hero ─────────────────────────────────── */
 
     .hero {
-      min-height: 100vh;
-      background: #0f0f0d;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .hero > img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Dark gradient across the lower third for text legibility */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        transparent 50%,
+        rgba(10, 10, 8, 0.72) 100%);
+    }
+
+    /* Text block — sits centred within the lower third */
+    .hero-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 33.333%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4rem 2rem;
-      position: relative;
+      padding: 0 2rem;
+      z-index: 1;
     }
 
     .hero h1 {
       font-family: var(--serif);
-      font-size: clamp(1.9rem, 4.5vw, 3.25rem);
+      font-size: clamp(1.4rem, 3vw, 2.6rem);
       font-weight: normal;
       color: #f0efeb;
       line-height: 1.2;
       letter-spacing: -0.01em;
       text-align: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 0.6rem;
     }
 
     .hero-sub {
       font-family: var(--sans);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #484844;
+      color: rgba(240, 239, 235, 0.55);
       text-align: center;
-    }
-
-    .scroll-cue {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--sans);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #3a3a36;
-      white-space: nowrap;
-      animation: pulse 2.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; }
-      50%       { opacity: 0.9; }
     }
 
     /* ── Page header ──────────────────────────── */
@@ -175,13 +183,14 @@
     /* ── Carousel ─────────────────────────────── */
 
     .carousel-block {
-      margin: 2.25rem 0;
+      width: 80%;
+      margin: 2.25rem auto;
     }
 
     .carousel-stage {
       position: relative;
       width: 100%;
-      aspect-ratio: 3 / 2;
+      aspect-ratio: 2 / 3;
       overflow: hidden;
       background: #e2e0db;
     }
@@ -362,9 +371,11 @@
 
   <!-- Hero -->
   <section class="hero">
-    <h1>Thank you for clicking the link.</h1>
-    <p class="hero-sub">Aidan J. Sinclair &nbsp;·&nbsp; Curator and Exhibition Manager &nbsp;·&nbsp; Art League Houston</p>
-    <span class="scroll-cue">↓ &nbsp; scroll</span>
+    <img src="images/silhouette.jpg" alt="">
+    <div class="hero-text">
+      <h1>Thank you for clicking the link.</h1>
+      <p class="hero-sub">Aidan J. Sinclair &nbsp;·&nbsp; Curator and Exhibition Manager &nbsp;·&nbsp; Application</p>
+    </div>
   </section>
 
   <!-- Page header -->
@@ -404,7 +415,7 @@
     </div>
 
     <div class="letter">
-      <p>Over that time I've worked as Gallery Director at Laura Rathe Fine Art, as founder and director of Gallery Nua, and currently as a gallery associate at Reeves Art Gallery. Across all of it, I've developed the full range of experience this position requires: exhibition planning and production, hands-on installation, budget and schedule management, artist contracts and logistics, catalogue production, and public programming. What I've found is that the operational work and the relational work can't really be separated — the quality of an exhibition often comes down to how well the relationships around it have been tended.</p>
+      <p>Over that time, I've worked as Gallery Manager at Laura Rathe Fine Art, as founder and director of Gallery Nua, and as a weekend associate at Reeves Art Gallery. Across all of it, I've developed the full range of experience this position requires.</p>
 
       <p>The Curator and Exhibition Manager role spans a broad range of responsibilities, from installation and art handling to donor engagement, from artist talks to gala logistics. The range of people it involves — artists, benefactors, community members, board members, institutional partners — is one of the things I find most compelling about it. I've worked across that spectrum, and I tend to be most effective when a role requires holding multiple registers at once.</p>
 
@@ -438,11 +449,6 @@
   </section>
 
   <script>
-    // ─────────────────────────────────────────────────────────────
-    // CAROUSEL CONTENT
-    // Add image files to the /images/ folder named carousel-1.jpg
-    // through carousel-10.jpg, then fill in captions below.
-    // ─────────────────────────────────────────────────────────────
     const slides = [
       { src: 'images/carousel-1.jpg',  caption: '' },
       { src: 'images/carousel-2.jpg',  caption: '' },
@@ -455,7 +461,6 @@
       { src: 'images/carousel-9.jpg',  caption: '' },
       { src: 'images/carousel-10.jpg', caption: '' },
     ];
-    // ─────────────────────────────────────────────────────────────
 
     const track     = document.getElementById('carouselTrack');
     const thumbsEl  = document.getElementById('carouselThumbs');
@@ -463,7 +468,6 @@
     let current = 0;
 
     slides.forEach((s, i) => {
-      // Main slide
       const slide = document.createElement('div');
       slide.className = 'carousel-slide';
       const img = document.createElement('img');
@@ -475,7 +479,6 @@
       slide.appendChild(img);
       track.appendChild(slide);
 
-      // Thumbnail
       const thumb = document.createElement('div');
       thumb.className = 'carousel-thumb' + (i === 0 ? ' active' : '');
       thumb.setAttribute('role', 'button');
@@ -498,27 +501,22 @@
       document.querySelectorAll('.carousel-thumb').forEach((t, i) => {
         t.classList.toggle('active', i === current);
       });
-      // Keep active thumbnail scrolled into view
       const activeThumb = thumbsEl.children[current];
       if (activeThumb) {
         activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
       }
     }
 
-    // Set initial caption
     captionEl.textContent = slides[0].caption;
 
-    // Arrow buttons
     document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
     document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
 
-    // Keyboard navigation
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft')  goTo(current - 1);
       if (e.key === 'ArrowRight') goTo(current + 1);
     });
 
-    // Touch / swipe
     let touchStartX = 0;
     const stage = document.querySelector('.carousel-stage');
     stage.addEventListener('touchstart', e => {
